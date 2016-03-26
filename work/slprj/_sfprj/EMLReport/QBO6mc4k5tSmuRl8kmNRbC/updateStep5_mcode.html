@@ -1,0 +1,44 @@
+<!-- saved from url=(0014)about:internet -->
+<div class="dead">
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="2,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">classdef</span> RobotController &lt; handle</span></span>
+<span class="srcline"><span class="lineno"><a href="2,2" id="srcline2"> 2</a></span><span class="line">    <span class="comment">%% Properties</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,3" id="srcline3"> 3</a></span><span class="line">    <span class="keyword">properties</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,4" id="srcline4"> 4</a></span><span class="line">        m_position = zeros(2,1);</span></span>
+<span class="srcline"><span class="lineno"><a href="2,5" id="srcline5"> 5</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,6" id="srcline6"> 6</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,7" id="srcline7"> 7</a></span><span class="line">    <span class="comment">%% Methods</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,8" id="srcline8"> 8</a></span><span class="line">    <span class="keyword">methods</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,9" id="srcline9"> 9</a></span><span class="line">        <span class="keyword">function</span> obj = RobotController</span></span>
+<span class="srcline"><span class="lineno"><a href="2,10" id="srcline10">10</a></span><span class="line">        <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,11" id="srcline11">11</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,12" id="srcline12">12</a></span><span class="line">    </span></span>
+<span class="srcline"><span class="lineno"><a href="2,13" id="srcline13">13</a></span><span class="line">    <span class="comment">%% Static methods</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,14" id="srcline14">14</a></span><span class="line">    <span class="keyword">methods</span> (Static)</span></span>
+</pre>
+</div>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="2,15" id="srcline15">15</a></span><span class="line">        <span class="keyword">function</span> <span class="var type1" id="S8T12U25">o_busCommand</span> = updateStep(<span class="var type1" id="S9T1U28">obj</span>, <span class="var type0" id="S10T0U29">p_busRobot</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,16" id="srcline16">16</a></span><span class="line">            <span class="var type1" id="S9T1U33">obj</span>.m_position = double(<span class="var type0" id="S10T0U38"><span class="message error" id="M2F5C">p_busRobot</span></span>.EncodersCount)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,17" id="srcline17">17</a></span><span class="line">            <span class="mxinfo " id="T13:U4"><span class="mxinfo " id="T13:U5"><span class="var type1" id="S8T12U43">o_busCommand</span>.Mode</span> = <span class="mxinfo " id="T13:U7">EMode</span>.SPEED</span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,18" id="srcline18">18</a></span><span class="line">            <span class="mxinfo " id="T8:U8"><span class="mxinfo " id="T8:U9"><span class="var type1" id="S8T12U51">o_busCommand</span>.Angle</span> = <span class="mxinfo " id="T8:U11">single(<span class="mxinfo " id="T14:U12">0.1</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,19" id="srcline19">19</a></span><span class="line">            <span class="mxinfo " id="T8:U13"><span class="mxinfo " id="T8:U14"><span class="var type1" id="S8T12U59">o_busCommand</span>.Position</span> = <span class="mxinfo " id="T8:U16">single(<span class="mxinfo " id="T14:U17">1</span>)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,20" id="srcline20">20</a></span><span class="line">        <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,21" id="srcline21">21</a></span><span class="line">        </span></span>
+<span class="srcline"><span class="lineno"><a href="2,22" id="srcline22">22</a></span><span class="line">        </span></span>
+</pre>
+<div class="dead">
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="2,23" id="srcline23">23</a></span><span class="line">        <span class="comment">%% getInstance : to get an instance of the object</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,24" id="srcline24">24</a></span><span class="line">        <span class="keyword">function</span> obj = getInstance</span></span>
+<span class="srcline"><span class="lineno"><a href="2,25" id="srcline25">25</a></span><span class="line">            <span class="keyword">persistent</span> RobotControllerSingleton</span></span>
+<span class="srcline"><span class="lineno"><a href="2,26" id="srcline26">26</a></span><span class="line">            <span class="keyword">if</span> isempty(RobotControllerSingleton)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,27" id="srcline27">27</a></span><span class="line">                RobotControllerSingleton = RobotController;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,28" id="srcline28">28</a></span><span class="line">            <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,29" id="srcline29">29</a></span><span class="line">            obj = RobotControllerSingleton;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,30" id="srcline30">30</a></span><span class="line">        <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,31" id="srcline31">31</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,32" id="srcline32">32</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,33" id="srcline33">33</a></span><span class="line"> </span></span>
+</pre>
+</div>

@@ -1,0 +1,44 @@
+<!-- saved from url=(0014)about:internet -->
+<div class="dead">
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="2,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">classdef</span> RobotBrain &lt; matlab.System</span></span>
+<span class="srcline"><span class="lineno"><a href="2,2" id="srcline2"> 2</a></span><span class="line">    <span class="comment">% Untitled2 Add summary here</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,3" id="srcline3"> 3</a></span><span class="line">    <span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,4" id="srcline4"> 4</a></span><span class="line">    <span class="comment">% This template includes the minimum set of functions required</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,5" id="srcline5"> 5</a></span><span class="line">    <span class="comment">% to define a System object with discrete state.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,6" id="srcline6"> 6</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,7" id="srcline7"> 7</a></span><span class="line">    <span class="keyword">properties</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,8" id="srcline8"> 8</a></span><span class="line">        <span class="comment">% Public, tunable properties.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,9" id="srcline9"> 9</a></span><span class="line">        <span class="var type0" id="S3T0U8">m_position</span> = int32([0 0])';</span></span>
+<span class="srcline"><span class="lineno"><a href="2,10" id="srcline10">10</a></span><span class="line">        <span class="var type0" id="S5T0U17">m_oldEncoder</span> = int32([0 0])';</span></span>
+<span class="srcline"><span class="lineno"><a href="2,11" id="srcline11">11</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,12" id="srcline12">12</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,13" id="srcline13">13</a></span><span class="line">    <span class="keyword">properties</span> (DiscreteState)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,14" id="srcline14">14</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,15" id="srcline15">15</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,16" id="srcline16">16</a></span><span class="line">    <span class="keyword">properties</span> (Access = private)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,17" id="srcline17">17</a></span><span class="line">        <span class="comment">% Pre-computed constants.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,18" id="srcline18">18</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,19" id="srcline19">19</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,20" id="srcline20">20</a></span><span class="line">    <span class="keyword">methods</span> (Access = protected)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,21" id="srcline21">21</a></span><span class="line">        <span class="keyword">function</span> setupImpl(<span class="var type0" id="S7T0U43">obj</span>,<span class="var type0" id="S8T0U44">u</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,22" id="srcline22">22</a></span><span class="line">            <span class="comment">% Implement tasks that need to be performed only once, </span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,23" id="srcline23">23</a></span><span class="line">            <span class="comment">% such as pre-computed constants.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,24" id="srcline24">24</a></span><span class="line">        <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,25" id="srcline25">25</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,26" id="srcline26">26</a></span><span class="line">        <span class="keyword">function</span> <span class="var type0" id="S10T0U47">y</span> = stepImpl(<span class="var type0" id="S11T0U50">obj</span>,<span class="var type0" id="S12T0U51">u</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,27" id="srcline27">27</a></span><span class="line">            <span class="comment">% Implement algorithm. Calculate y as a function of</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,28" id="srcline28">28</a></span><span class="line">            <span class="comment">% input u and discrete states.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,29" id="srcline29">29</a></span><span class="line">            <span class="var type0" id="S13T0U54">m_position</span> = <span class="var type0" id="S12T0U57">u</span>.EncodersCount - <span class="var type0" id="S11T0U60">obj</span>.m_oldEncoder;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,30" id="srcline30">30</a></span><span class="line">            <span class="var type0" id="S10T0U64">y</span> = 0;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,31" id="srcline31">31</a></span><span class="line">            <span class="var type0" id="S11T0U69">obj</span>.m_oldEncoder = <span class="var type0" id="S12T0U72">u</span>.EncodersCount;</span></span>
+<span class="srcline"><span class="lineno"><a href="2,32" id="srcline32">32</a></span><span class="line">        <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,33" id="srcline33">33</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="2,34" id="srcline34">34</a></span><span class="line">        <span class="keyword">function</span> resetImpl(<span class="var type0" id="S15T0U78">obj</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="2,35" id="srcline35">35</a></span><span class="line">            <span class="comment">% Initialize discrete-state properties.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,36" id="srcline36">36</a></span><span class="line">        <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,37" id="srcline37">37</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,38" id="srcline38">38</a></span><span class="line"><span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="2,39" id="srcline39">39</a></span><span class="line"> </span></span>
+</pre>
+</div>
