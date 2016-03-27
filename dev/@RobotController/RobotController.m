@@ -7,14 +7,24 @@ classdef RobotController < handle
         
         % Updateable properties
         m_currentIndex = 0; % Iteration index
-        m_position = [400, 400, 0]; % Robot estimated position (x, y, theta(radian))
+        m_position = [0, 0, 0]; % Robot estimated position (x, y, theta(radian))
         m_positionsHistory = zeros(10000, 3); % History of m_position properties
         m_old_encoders = zeros(2, 1); % Last EncodersCount (double)
         m_currentObstaclePosition = []; % Estimated x,y of current obstacle detected position
         m_currentSitesPosition = []; % Estimated x,y of current sites detected positions
         
+        % Grid and layers
+        m_grid_X = [];
+        m_grid_Y = [];
+        m_grid_angle = [];
+        m_grid_distance = [];
         m_grid_explored = zeros(160, 160); % Meshgrid for grid exploration
         m_grid_site = ones(160, 160)*100; % Meshgrid for sites
+        m_grid_obstacles = [];
+        m_grid_score = [];
+        
+        % Mode
+        m_explorationMode = 0;
         
         % Display properties
         m_figHandle = [];
@@ -29,6 +39,20 @@ classdef RobotController < handle
             % Robot parameters setup
             obj.m_robotParameters = getRobotParametersStruct;
             obj.m_simulationParameters = getSimulationParametersStruct;
+            
+            % Initialize grids
+            obj.m_simulationParameters.mainMeshSize
+            xMax = obj.m_simulationParameters.mainMeshSize(1)/2;
+            x_vect = single(-xMax:obj.m_simulationParameters.resolution:xMax);
+            yMax = obj.m_simulationParameters.mainMeshSize(2)/2;
+            y_vect = single(-yMax:obj.m_simulationParameters.resolution:yMax);
+            [obj.m_grid_X, obj.m_grid_Y] = meshgrid(x_vect,y_vect);
+            obj.m_grid_angle = single(zeros(size(obj.m_grid_X)));
+            obj.m_grid_distance = single(zeros(size(obj.m_grid_X)));
+            obj.m_grid_explored = single(zeros(size(obj.m_grid_X)));
+            obj.m_grid_site = single(zeros(size(obj.m_grid_X)));
+            obj.m_grid_obstacles = single(zeros(size(obj.m_grid_X)));
+            obj.m_grid_score = single(zeros(size(obj.m_grid_X)));
             
             % Figure setup
             obj.m_figHandle = figure;
@@ -79,7 +103,7 @@ classdef RobotController < handle
             obj.updateVisitedSurface;
             
             % Update display
-            obj.updateDisplay;
+%             obj.updateDisplay;
             
             %Gestion active des consignes : désactivé dans simulink
             o_busCommand = obj.updateOutput;

@@ -17,7 +17,10 @@ if (value ~= -1)
     murX = obj.m_position(1) + double(value) * sin( Theta );
     murY = obj.m_position(2) + double(value) * cos( Theta );
     obj.m_currentObstaclePosition = [murX; murY];
-    obj.m_grid_site( 160-floor(murY/5), floor(murX/5) ) = obj.m_grid_site( 160-floor(murY/5), floor(murX/5) ) - 50;
+    
+    [~,iObstacle] = min(abs(murY-obj.m_grid_Y(:,1)));
+    [~,jObstacle] = min(abs(murX-obj.m_grid_X(1,:)));
+    obj.m_grid_obstacles(iObstacle,jObstacle) = 1;
 end
 
 end

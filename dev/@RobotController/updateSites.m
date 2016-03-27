@@ -7,21 +7,11 @@ for i=1:6
         Theta = -obj.m_positionsHistory(obj.m_currentIndex-latency, 3) - double(p_bearings(i))*pi/180 + pi/2;
         obsX = obj.m_positionsHistory(obj.m_currentIndex-latency, 1) + double(p_distances(i)) * sin( Theta );
         obsY = obj.m_positionsHistory(obj.m_currentIndex-latency, 2) + double(p_distances(i)) * cos( Theta );
+        assert(abs(obsX)<obj.m_grid_X(end,end) && abs(obsY)<obj.m_grid_Y(end,end), 'Position is out of grid bounds');
         
-        % Boundaries
-        if (obsX < 1)
-            obsX = 1;
-        elseif (obsX > 800)
-            obsX = 800;
-        end
-        
-        if (obsY < 1)
-            obsY = 1;
-        elseif (obsX > 800)
-            obsY = 800;
-        end
-        
-        obj.m_grid_site( 160-floor(obsY/5), floor(obsX/5) ) = obj.m_grid_site( 160-floor(obsY/5), floor(obsX/5) ) + 10;
+        [~,iSite] = min(abs(obsY-obj.m_grid_Y(:,1)));
+        [~,jSite] = min(abs(obsX-obj.m_grid_X(1,:)));
+        obj.m_grid_obstacles(iSite,jSite) = 1;
         
         obj.m_currentSitesPosition(i,1)=obsX;
         obj.m_currentSitesPosition(i,2)=obsY;

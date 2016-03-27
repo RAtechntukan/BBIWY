@@ -20,5 +20,6 @@ else
     obj.m_position(2) = yO - R * cos(obj.m_position(3));
 end
 
+assert(abs(obj.m_position(1))<obj.m_grid_X(end,end) && abs(obj.m_position(2))<obj.m_grid_Y(end,end), 'Position is out of grid bounds');
 obj.m_positionsHistory(obj.m_currentIndex, :) = obj.m_position;
 end
