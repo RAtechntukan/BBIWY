@@ -11,7 +11,7 @@ for i=1:6
         
         [~,iSite] = min(abs(obsY-obj.m_grid_Y(:,1)));
         [~,jSite] = min(abs(obsX-obj.m_grid_X(1,:)));
-        obj.m_grid_obstacles(iSite,jSite) = 1;
+        obj.m_grid_site(iSite,jSite) = 1;
         
         obj.m_currentSitesPosition(i,1)=obsX;
         obj.m_currentSitesPosition(i,2)=obsY;

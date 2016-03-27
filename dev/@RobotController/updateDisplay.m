@@ -1,4 +1,13 @@
 function updateDisplay(obj)
+% Figure setup
+if isempty(obj.m_figHandle) || ~isgraphics(obj.m_figHandle)
+    obj.m_figHandle = figure;
+    obj.m_displayData.axes_positions = subplot(221);
+    obj.m_displayData.axes_gridExplored = subplot(222);
+    obj.m_displayData.axes_gridSite = subplot(223);
+    obj.m_displayData.axes_gridObstacles = subplot(224);
+end
+
 %Plot trajectory
 axes(obj.m_displayData.axes_positions);
 hold off
@@ -22,22 +31,24 @@ for i=1:6
             obj.m_currentSitesPosition(i,1) - obj.m_position(1), obj.m_currentSitesPosition(i,2) - obj.m_position(2), 1);
     end
 end
-
-xlim([0 800]);
-ylim([0 800]);
+xdata = obj.m_grid_X([1 end]);
+ydata = obj.m_grid_Y([1 end]);
+xlim(xdata);
+ylim(ydata);
 
 % Exploration grids
 axes(obj.m_displayData.axes_gridExplored);
-imagesc(obj.m_grid_explored); axis equal xy;
-caxis([0, 200]);
-colormap('jet');
-colorbar;
+imagesc(obj.m_grid_explored, 'xdata',xdata,'ydata',ydata); axis equal xy;
+caxis([0, 2]);
 
+% Grid site
 axes(obj.m_displayData.axes_gridSite);
-imagesc(obj.m_grid_site); axis equal xy;
-colormap('jet');
-caxis([0, 200]);
-colorbar;
+imagesc(obj.m_grid_site, 'xdata',xdata,'ydata',ydata); axis equal xy;
+caxis([0, 2]);
 
+% Grid obstacles
+axes(obj.m_displayData.axes_gridObstacles);
+imagesc(obj.m_grid_obstacles, 'xdata',xdata,'ydata',ydata); axis equal xy;
+caxis([0, 2]);
 
 end

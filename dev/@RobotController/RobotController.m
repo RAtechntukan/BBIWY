@@ -55,12 +55,6 @@ classdef RobotController < handle
             obj.m_grid_obstacles = single(zeros(size(obj.m_grid_X)));
             obj.m_grid_score = single(zeros(size(obj.m_grid_X)));
             
-            % Figure setup
-            obj.m_figHandle = figure;
-            obj.m_displayData.axes_positions = subplot(221);
-            obj.m_displayData.axes_gridExplored = subplot(222);
-            obj.m_displayData.axes_gridSite = subplot(223);
-            
         end
         
         
@@ -104,7 +98,7 @@ classdef RobotController < handle
             obj.updateVisitedSurface;
             
             % Update display
-%             obj.updateDisplay;
+            obj.updateDisplay;
             
             %Gestion active des consignes : désactivé dans simulink
             o_busCommand = obj.updateOutput;
