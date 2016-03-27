@@ -14,9 +14,8 @@ if (obj.m_currentIndex > 4)
     yRobotAbsolute = xyRobotAbsolute(2,:)'+obj.m_positionsHistory(obj.m_currentIndex-latency, 2);
     %fill(xRobotAbsolute, yRobotAbsolute, 'r');
     
-    [X,Y] = meshgrid(1:160,1:160);
     
-    in = inpolygon(X,Y,xRobotAbsolute/5,yRobotAbsolute/5);
-    obj.m_grid_explored( 160-Y(in), X(in) ) = 100;
+    in = inpolygon(obj.m_grid_X, obj.m_grid_Y, xRobotAbsolute,yRobotAbsolute);
+    obj.m_grid_explored( in ) = 1;
 end
 end
