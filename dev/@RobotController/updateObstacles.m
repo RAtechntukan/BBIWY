@@ -20,7 +20,8 @@ if (value ~= -1)
     
     [~,iObstacle] = min(abs(murY-obj.m_grid_Y(:,1)));
     [~,jObstacle] = min(abs(murX-obj.m_grid_X(1,:)));
-    obj.m_grid_obstacles(iObstacle,jObstacle) = 1;
+    offset = (size(obj.m_simulationParameters.gaussianKernel, 1)-1) /2;
+    obj.m_grid_obstacles(iObstacle-offset:iObstacle+offset,jObstacle-offset:jObstacle+offset) = obj.m_grid_obstacles(iObstacle-offset:iObstacle+offset,jObstacle-offset:jObstacle+offset) + obj.m_simulationParameters.gaussianKernel;
 end
 
 end
