@@ -14,8 +14,11 @@ hold off
 plot(obj.m_positionsHistory(1:obj.m_currentIndex, 1), obj.m_positionsHistory(1:obj.m_currentIndex, 2) );
 hold on;
 %Plot de l'orientation actuel
+% quiver(obj.m_position(1),obj.m_position(2), ...
+%     sin(obj.m_position(3) + pi/2), -cos(obj.m_position(3) + pi/2), 30);
 quiver(obj.m_position(1),obj.m_position(2), ...
-    sin(obj.m_position(3) + pi/2), -cos(obj.m_position(3) + pi/2), 30);
+    cos(obj.m_position(3)), sin(obj.m_position(3)), 30);
+
 
 %Plot de l'obstacle actuel
 if ~isempty(obj.m_currentObstaclePosition)
