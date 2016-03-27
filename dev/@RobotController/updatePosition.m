@@ -1,7 +1,7 @@
 function updatePosition(obj, p_encodersCountDouble)
 % Gestion de l'odometrie
 % http://geonobotwiki.free.fr/doku.php?id=robotics:odometrie
-encoders = (p_encodersCountDouble-obj.m_old_encoders) * obj.m_robotParameters.wheelRadius * 2 * pi / obj.m_robotParameters.encodersResolution;
+encoders = double(p_encodersCountDouble-obj.m_old_encoders) * obj.m_robotParameters.wheelRadius * 2 * pi / obj.m_robotParameters.encodersResolution;
 obj.m_old_encoders = p_encodersCountDouble;
 
 dR = ( encoders(1) + encoders(2)) /2;
@@ -22,4 +22,6 @@ end
 
 assert(abs(obj.m_position(1))<obj.m_grid_X(end,end) && abs(obj.m_position(2))<obj.m_grid_Y(end,end), 'Position is out of grid bounds');
 obj.m_positionsHistory(obj.m_currentIndex, :) = obj.m_position;
+obj.m_encodersHistory(obj.m_currentIndex, :) = encoders;
+
 end

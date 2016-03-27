@@ -9,7 +9,8 @@ classdef RobotController < handle
         m_currentIndex = 0; % Iteration index
         m_position = [0, 0, 0]; % Robot estimated position (x, y, theta(radian))
         m_positionsHistory = zeros(10000, 3); % History of m_position properties
-        m_old_encoders = zeros(2, 1); % Last EncodersCount (double)
+        m_encodersHistory  = zeros(10000, 2);
+        m_old_encoders = int32(zeros(2, 1)); % Last EncodersCount (double)
         m_currentObstaclePosition = []; % Estimated x,y of current obstacle detected position
         m_currentSitesPosition = []; % Estimated x,y of current sites detected positions
         
@@ -90,7 +91,7 @@ classdef RobotController < handle
             obj.m_currentIndex = obj.m_currentIndex + 1;
             
             % Update estimated position data
-            obj.updatePosition(double(p_busRobot.EncodersCount));
+            obj.updatePosition(p_busRobot.EncodersCount);
                
             % Gestion des obstacles (capteur de distance)
             obj.updateObstacles(p_busRobot.ScannerStatus, p_busRobot.ScannerValues);
