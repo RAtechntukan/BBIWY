@@ -9,7 +9,7 @@ classdef RobotController < handle
         m_currentIndex = 0; % Iteration index
         m_position = [0, 0, 0]; % Robot estimated position (x, y, theta(radian))
         m_positionsHistory = zeros(10000, 3); % History of m_position properties
-        m_encodersHistory  = zeros(10000, 2);
+        m_encodersHistory  = int32(zeros(10000, 2));
         m_old_encoders = int32(zeros(2, 1)); % Last EncodersCount (double)
         m_currentObstaclePosition = []; % Estimated x,y of current obstacle detected position
         m_currentSitesPosition = []; % Estimated x,y of current sites detected positions
