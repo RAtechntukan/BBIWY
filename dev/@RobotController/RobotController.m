@@ -13,6 +13,8 @@ classdef RobotController < handle
         m_old_encoders = int32(zeros(2, 1)); % Last EncodersCount (double)
         m_currentObstaclePosition = []; % Estimated x,y of current obstacle detected position
         m_currentSitesPosition = []; % Estimated x,y of current sites detected positions
+        m_histObstacle = zeros(10000, 2);
+        m_indexObstacle = 1;
         
         % Grid and layers
         m_grid_X = [];
@@ -65,6 +67,7 @@ classdef RobotController < handle
         updateObstacles(obj, p_scannerStatus, p_scannerValues);
         updateSites(obj,p_distances,p_bearings);
         updateVisitedSurface(obj);
+        image_output = getProjObstacles(obj);
         %
         
         
