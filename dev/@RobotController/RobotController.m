@@ -97,11 +97,11 @@ classdef RobotController < handle
             % Gestion de la surface visité (et vide de site)
             obj.updateVisitedSurface;
             
-            % Update display
-            obj.updateDisplay;
-            
             %Gestion active des consignes : désactivé dans simulink
             o_busCommand = obj.updateOutput;
+            
+            % Update display
+            obj.updateDisplay;
             
         end
         

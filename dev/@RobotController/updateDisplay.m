@@ -46,8 +46,7 @@ caxis([0, 2]);
 
 % Grid site
 axes(obj.m_displayData.axes_gridSite);
-imagesc(obj.m_grid_site, 'xdata',xdata,'ydata',ydata); axis equal xy;
-caxis([0, 2]);
+imagesc(obj.m_grid_score, 'xdata',xdata,'ydata',ydata); axis equal xy;
 
 % Grid obstacles
 axes(obj.m_displayData.axes_gridObstacles);
